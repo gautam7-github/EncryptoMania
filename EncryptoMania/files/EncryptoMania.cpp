@@ -1,15 +1,22 @@
 // EncryptoMania.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+
+// standard header files
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <iomanip>
 #include <cstdlib>
 #include <ctime>
+#include <Windows.h>
+
+// custom header files
 #include "CeaserCipher.h"
+#include "asciiArt.h"
+
+// standard namespace
 using namespace std;
 
-// starts here
+// UI CLASS
 class displayer_UI
 {
 public:
@@ -36,6 +43,14 @@ public:
 
 int main(int argc, char const *argv[])
 {
+	ascii_art("Encrypto Mania");
+	Sleep(5000);
+	ascii_art("A TEXT TOOL FOR");
+	Sleep(5000);
+	ascii_art("ENCRYPTION");
+	ascii_art("AND");
+	ascii_art("DECRYPTION");
+	system("pause");
 	CeaserCipher RUNAPP;
 	RUNAPP.encrypt("assets/text.txt");
 	RUNAPP.decrypt();
