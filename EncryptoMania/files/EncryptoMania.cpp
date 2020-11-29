@@ -23,37 +23,38 @@ public:
 	void displayBrand()
 	{
 		system("cls");
-		cout << "\n\n\n\n\n";
-		cout << setw(60) << "-------------------" << endl;
-		cout << setw(60) << "| ENCRYPTRO-MANIA |" << endl;
-		cout << setw(60) << "-------------------" << endl;
-		cout << "\n\n\n\n";
-		cout << setw(70) << "-------------------------------------" << endl;
-		cout << setw(70) << "| A TEXT ENCRYPTION/DECRYPTION TOOL |" << endl;
-		cout << setw(70) << "-------------------------------------" << endl;
-		cout << "\n\n\n";
+		ascii_selector();
 	}
 	void displayMenu()
 	{
+		cout << endl;
 		cout << setw(50) << " 1. CEASER CIPHER " << endl;
 		cout << setw(50) << " 2. SIMPLE CIPHER " << endl;
 		cout << setw(50) << " 3. EXIT WIZARD   " << endl;
+	}
+	void askUser()
+	{
+		int choice;
+		displayBrand();
+		displayMenu();
+		cout << setw(30) << " WHAT ? :: ";
+		cin >> choice;
+		if (choice == 1)
+		{
+			CeaserCipher RUNAPP;
+			RUNAPP.encrypt("assets/text.txt");
+			RUNAPP.decrypt();
+		}
+		if (choice == 2)
+		{
+		}
 	}
 };
 
 int main(int argc, char const *argv[])
 {
-	ascii_art("Encrypto Mania");
-	Sleep(5000);
-	ascii_art("A TEXT TOOL FOR");
-	Sleep(5000);
-	ascii_art("ENCRYPTION");
-	ascii_art("AND");
-	ascii_art("DECRYPTION");
-	system("pause");
-	CeaserCipher RUNAPP;
-	RUNAPP.encrypt("assets/text.txt");
-	RUNAPP.decrypt();
+	displayer_UI RUN;
+	RUN.askUser();
 	return 0;
 }
 
