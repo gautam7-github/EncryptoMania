@@ -1,2 +1,3 @@
-# EncrytoMania
- A text encr/decr tool
+# EncrytoMania 🖨
+
+    An ADVANCED TEXT encryption/decryption tool
