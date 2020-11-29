@@ -11,6 +11,7 @@
 
 // custom header files
 #include "CeaserCipher.h"
+#include "vernamCipher.h"
 #include "asciiArt.h"
 
 // standard namespace
@@ -47,6 +48,13 @@ public:
 		}
 		if (choice == 2)
 		{
+			vernamCipher RUNAPP("HELLOWORLD", "MANIA");
+			RUNAPP.encrypt();
+			RUNAPP.printenc();
+			system("pause");
+			RUNAPP.decrypt();
+			RUNAPP.printdec();
+			system("pause");
 		}
 	}
 };

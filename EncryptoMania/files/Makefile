@@ -1,5 +1,6 @@
 main : EncryptoMania.cpp CeaserCipher.cpp
-	g++ -o asciiArt.o -c asciiArt.cpp
-	g++ -o EncryptoMania.o -c EncryptoMania.cpp
-	g++ -o CeaserCipher.o -c CeaserCipher.cpp
-	g++ -o EncryptoMania EncryptoMania.o CeaserCipher.o asciiArt.o
+	g++ --std=c++17 -o asciiArt.o -c asciiArt.cpp
+	g++ --std=c++17 -o EncryptoMania.o -c EncryptoMania.cpp
+	g++ --std=c++17 -o CeaserCipher.o -c CeaserCipher.cpp
+	g++ --std=c++17 -o vernamCipher.o -c vernamCipher.cpp
+	g++ --std=c++17 -o EncryptoMania EncryptoMania.o CeaserCipher.o vernamCipher.o asciiArt.o
