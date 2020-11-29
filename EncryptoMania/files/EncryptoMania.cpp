@@ -6,10 +6,11 @@
 #include <iomanip>
 #include <cstdlib>
 #include <ctime>
+#include "CeaserCipher.h"
 using namespace std;
 
 // starts here
-class displayer
+class displayer_UI
 {
 public:
 	void displayBrand()
@@ -32,40 +33,57 @@ public:
 		cout << setw(50) << " 3. EXIT WIZARD   " << endl;
 	}
 };
-class encrypter
+
+int main(int argc, char const *argv[])
 {
+	CeaserCipher RUNAPP;
+	RUNAPP.encrypt("assets/text.txt");
+	RUNAPP.decrypt();
+	return 0;
+}
+
+/*
+class encrypter_CeaserCipher
+{
+private:
+	int CC_KEY;
+	int getKey()
+	{
+		return CC_KEY;
+	}
+
 public:
+	encrypter_CeaserCipher()
+	{
+		CC_KEY = 3;
+	}
 	void ceaserCipher_encrypt(string fileName)
 	{
 		int keyNum;
-		char readOG;
+		char text;
 
 		// files
-		fstream ogfile, encfile, keyfile;
+		fstream ogfile, encfile;
 		ogfile.open(fileName.c_str(), ios::in);
-		encfile.open("encrypted.txt", ios::out);
-		keyfile.open("key.txt", ios::out);
+		encfile.open("assets/encrypted_CCipher.txt", ios::out);
 
-		if ((!ogfile) && (!encfile) && (!keyfile))
+		if ((!ogfile) && (!encfile))
 		{
-			cout << "ERROR LOG : 431";
+			perror("ERROR :");
 			exit(0);
 		}
 
 		// real deal starts here
 		while (!ogfile.eof())
 		{
-			ogfile.get(readOG);
-			keyNum = 3;
-			keyfile << keyNum << endl;
-			readOG = readOG + keyNum;
-			encfile << readOG;
+			ogfile.get(text);
+			text = text + getKey();
+			encfile << text;
 		}
 
 		// closing the files
 		ogfile.close();
 		encfile.close();
-		keyfile.close();
 	}
 	void ceaserCipher_decrypt()
 	{
@@ -73,12 +91,12 @@ public:
 
 		// files
 		fstream ecfile, decfile;
-		ecfile.open("encrypted.txt", ios::in);
-		decfile.open("decrypted.txt", ios::out);
+		ecfile.open("assets/encrypted_CCipher.txt", ios::in);
+		decfile.open("assets/decrypted_CCipher.txt", ios::out);
 
 		if ((!ecfile) && (!decfile))
 		{
-			cout << "ERROR LOG : 431";
+			perror("ERROR :");
 			exit(0);
 		}
 
@@ -86,7 +104,7 @@ public:
 		while (!ecfile.eof())
 		{
 			ecfile.get(writeOG);
-			writeOG = writeOG - 3;
+			writeOG = writeOG - getKey();
 			decfile << writeOG;
 		}
 
@@ -95,24 +113,4 @@ public:
 		decfile.close();
 	}
 };
-
-class admin : public displayer, public encrypter
-{
-public:
-	void adminDoAll(char const *argu)
-	{
-		srand(time(NULL));
-		cout << "DETECTED FILE NAME : ";
-		cout << argu;
-		//displayBrand();
-		//displayMenu();
-		ceaserCipher_encrypt("text.txt");
-		ceaserCipher_decrypt();
-	}
-};
-int main(int argc, char const *argv[])
-{
-	class admin sudo;
-	sudo.adminDoAll(argv[1]);
-	return 0;
-}
+*/
