@@ -1,53 +1,68 @@
 #include <iostream>
+#include <fstream>
 #include "vernamCipher.h"
-vernamCipher::vernamCipher(string a, string b)
+using namespace std;
+vernamCipher::vernamCipher(string M, string K)
 {
-    s = a;
-    k = b;
+    message = M;
+    key = K;
 }
 void vernamCipher::encrypt()
 {
-    int i, j = 0;
-    for (i = 0; i < s.size(); i++)
+    // files
+    fstream encFile, textFile;
+    encFile.open("assets/encrypted-VCipher.txt", ios::out);
+    textFile.open("assets/text2.txt", ios::in);
+    if ((!encFile) && (!textFile))
     {
-        enc[i] = s[i] ^ k[j];
-        j++;
-        if (j >= k.size())
-        {
-            j = 0;
-        }
+        perror("ERROR ::");
+        return;
     }
+    // real deal starts here
+    int i, j = 0;
+    char c, textOG;
+    while (!textFile.eof())
+    {
+        cin.clear();
+        getline(textFile, message);
+
+        for (i = 0; i < message.size(); i++)
+        {
+            enc[i] = message[i] ^ key[j];
+            j++;
+            if (j >= key.size())
+            {
+                j = 0;
+            }
+            c = enc[i] % 74 + 48;
+            encFile << c;
+        }
+        encFile << endl;
+    }
+    encFile.close();
 }
 void vernamCipher::decrypt()
 {
-    int i, j = 0;
-    for (i = 0; i < s.size(); i++)
+    fstream encFile;
+    string encr;
+    encFile.open("assets/encrypted-VCipher.txt", ios::in);
+    while (!encFile.eof())
     {
-        dec[i] = enc[i] ^ k[j];
-        j++;
-        if (j >= k.size())
+        cin.clear();
+        getline(encFile, encr);
+
+        int i, j = 0;
+        for (i = 0; i < message.size(); i++)
         {
-            j = 0;
+            dec[i] = encr[i] ^ key[j];
+            j++;
+            if (j >= key.size())
+            {
+                j = 0;
+            }
+            cout << dec[i] << " ";
         }
-    }
-}
-void vernamCipher::printenc()
-{
-    int i;
-    char c;
-    for (i = 0; i < s.size(); i++)
-    {
-        c = enc[i] % 74 + 48;
-        cout << c;
-    }
-    cout << endl;
-}
-void vernamCipher::printdec()
-{
-    int i;
-    for (i = 0; i < s.size(); i++)
-    {
-        cout << dec[i];
+        cout << endl;
     }
     cout << endl;
 }

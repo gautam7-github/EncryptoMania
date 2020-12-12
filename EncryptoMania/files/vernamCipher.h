@@ -5,15 +5,13 @@ using namespace std;
 class vernamCipher
 {
 private:
-    string s, k;
-    char enc[1000], dec[1000];
+    string message, key;
+    char *enc, *dec;
 
 public:
-    vernamCipher(string a, string b);
+    vernamCipher(string, string);
     void encrypt();
     void decrypt();
-    void printenc();
-    void printdec();
 };
 
 #endif // VERNAM_H

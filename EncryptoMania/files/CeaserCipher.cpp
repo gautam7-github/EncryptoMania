@@ -1,5 +1,6 @@
 #include "CeaserCipher.h"
 #include <fstream>
+#include <iostream>
 #include <cstdlib>
 using namespace std;
 
@@ -25,9 +26,9 @@ void CeaserCipher::encrypt(string fileName)
     if ((!ogfile) && (!encfile))
     {
         perror("ERROR :");
-        exit(0);
+        return;
     }
-
+    cout << "ENCRYPTING...\n";
     // real deal starts here
     while (!ogfile.eof())
     {
@@ -35,7 +36,7 @@ void CeaserCipher::encrypt(string fileName)
         text = text + getKey();
         encfile << text;
     }
-
+    cout << "ENCRYPTED...\n";
     // closing the files
     ogfile.close();
     encfile.close();
@@ -52,9 +53,9 @@ void CeaserCipher::decrypt()
     if ((!ecfile) && (!decfile))
     {
         perror("ERROR :");
-        exit(0);
+        return;
     }
-
+    cout << "DECRYPTING...\n";
     // real deal starts here
     while (!ecfile.eof())
     {
@@ -62,7 +63,7 @@ void CeaserCipher::decrypt()
         writeOG = writeOG - getKey();
         decfile << writeOG;
     }
-
+    cout << "DECRYPTED...\n";
     // closing the files
     ecfile.close();
     decfile.close();

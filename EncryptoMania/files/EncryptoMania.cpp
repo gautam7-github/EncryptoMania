@@ -10,8 +10,10 @@
 #include <Windows.h>
 
 // custom header files
+// Cipher Files
 #include "CeaserCipher.h"
 #include "vernamCipher.h"
+// UI Files
 #include "asciiArt.h"
 
 // standard namespace
@@ -30,30 +32,38 @@ public:
 	{
 		cout << endl;
 		cout << setw(50) << " 1. CEASER CIPHER " << endl;
-		cout << setw(50) << " 2. SIMPLE CIPHER " << endl;
+		cout << setw(50) << " 2. VERNAM CIPHER " << endl;
 		cout << setw(50) << " 3. EXIT WIZARD   " << endl;
 	}
 	void askUser()
 	{
-		int choice;
-		displayBrand();
-		displayMenu();
-		cout << setw(30) << " WHAT ? :: ";
-		cin >> choice;
-		if (choice == 1)
+		while (true)
 		{
-			CeaserCipher RUNAPP;
-			RUNAPP.encrypt("assets/text.txt");
-			RUNAPP.decrypt();
-		}
-		if (choice == 2)
-		{
-			vernamCipher RUNAPP("HELLOWORLD", "MANIA");
-			RUNAPP.encrypt();
-			RUNAPP.printenc();
-			system("pause");
-			RUNAPP.decrypt();
-			RUNAPP.printdec();
+			system("cls");
+			string text;
+			int choice;
+			displayBrand();
+			displayMenu();
+			cout << setw(30) << " WHAT ? :: ";
+			cin >> choice;
+			if (choice == 1)
+			{
+				CeaserCipher RUNAPP;
+				RUNAPP.encrypt("assets/text.txt");
+				RUNAPP.decrypt();
+			}
+			if (choice == 2)
+			{
+				vernamCipher RUN("HelloWorld", "TEST");
+				RUN.encrypt();
+				system("pause");
+				RUN.decrypt();
+				system("pause");
+			}
+			if (choice == 3)
+			{
+				return;
+			}
 			system("pause");
 		}
 	}
