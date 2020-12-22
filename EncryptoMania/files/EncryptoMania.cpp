@@ -54,7 +54,7 @@ public:
 			}
 			if (choice == 2)
 			{
-				vernamCipher RUN("HelloWorld", "TEST");
+				vernamCipher RUN("TEST");
 				RUN.encrypt();
 				system("pause");
 				RUN.decrypt();

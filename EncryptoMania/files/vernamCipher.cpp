@@ -1,19 +1,19 @@
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 #include "vernamCipher.h"
 using namespace std;
-vernamCipher::vernamCipher(string M, string K)
+vernamCipher::vernamCipher(string K)
 {
-    message = M;
     key = K;
 }
 void vernamCipher::encrypt()
 {
     // files
     fstream encFile, textFile;
-    encFile.open("assets/encrypted-VCipher.txt", ios::out);
     textFile.open("assets/text2.txt", ios::in);
-    if ((!encFile) && (!textFile))
+    encFile.open("assets/encrypted-VCipher.txt", ios::out);
+    if ((!encFile.is_open()) && (!textFile.is_open()))
     {
         perror("ERROR ::");
         return;
@@ -21,48 +21,55 @@ void vernamCipher::encrypt()
     // real deal starts here
     int i, j = 0;
     char c, textOG;
-    while (!textFile.eof())
-    {
-        cin.clear();
-        getline(textFile, message);
+    cin.clear();
 
+    while (textFile >> message)
+    {
+        transform(message.begin(), message.end(), message.begin(), ::toupper);
+        int mod = key.size();
+        j = 0;
+        for (int i = key.size(); i < message.size(); i++)
+        {
+            key += key[j % mod];
+            j++;
+        }
+        string ans = "";
         for (i = 0; i < message.size(); i++)
         {
-            enc[i] = message[i] ^ key[j];
-            j++;
-            if (j >= key.size())
-            {
-                j = 0;
-            }
-            c = enc[i] % 74 + 48;
-            encFile << c;
+            ans += (key[i] - 'A' + message[i] - 'A') % 26 + 'A';
         }
-        encFile << endl;
+        encFile << ans << endl;
     }
+    textFile.close();
     encFile.close();
 }
 void vernamCipher::decrypt()
 {
-    fstream encFile;
+    fstream encFile, decFile;
     string encr;
     encFile.open("assets/encrypted-VCipher.txt", ios::in);
-    while (!encFile.eof())
-    {
-        cin.clear();
-        getline(encFile, encr);
+    decFile.open("assets/decrypted_VCipher.txt", ios::out);
 
-        int i, j = 0;
-        for (i = 0; i < message.size(); i++)
-        {
-            dec[i] = encr[i] ^ key[j];
-            j++;
-            if (j >= key.size())
-            {
-                j = 0;
-            }
-            cout << dec[i] << " ";
-        }
-        cout << endl;
+    if ((!encFile.is_open()) && (!decFile.is_open()))
+    {
+        perror("ERROR :");
+        return;
     }
-    cout << endl;
+    int mod = key.size();
+    while (encFile >> message)
+    {
+        transform(message.begin(), message.end(), message.begin(), ::toupper);
+        int j = 0;
+        for (int i = key.size(); i < message.size(); i++)
+        {
+            key += key[j % mod];
+            j++;
+        }
+        string ans = "";
+        for (int i = 0; i < message.size(); i++)
+        {
+            ans += (message[i] - key[i] + 26) % 26 + 'A';
+        }
+        decFile << ans << endl;
+    }
 }

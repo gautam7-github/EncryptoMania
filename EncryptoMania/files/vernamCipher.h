@@ -9,7 +9,7 @@ private:
     char *enc, *dec;
 
 public:
-    vernamCipher(string, string);
+    vernamCipher(string);
     void encrypt();
     void decrypt();
 };
