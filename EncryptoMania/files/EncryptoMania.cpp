@@ -44,18 +44,22 @@ public:
 			int choice;
 			displayBrand();
 			displayMenu();
-			cout << setw(30) << " WHAT ? :: ";
+			cout << setw(30) << " SELECT OPTION : ";
 			cin >> choice;
 			if (choice == 1)
 			{
+				string fileName;
 				CeaserCipher RUNAPP;
-				RUNAPP.encrypt("assets/text.txt");
+				cin >> fileName;
+				RUNAPP.encrypt(fileName);
 				RUNAPP.decrypt();
 			}
 			if (choice == 2)
 			{
-				vernamCipher RUN("TEST");
-				RUN.encrypt();
+				string fileName;
+				cin >> fileName;
+				vernamCipher RUN("ENCMANIA");
+				RUN.encrypt(fileName);
 				system("pause");
 				RUN.decrypt();
 				system("pause");

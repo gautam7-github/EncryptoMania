@@ -7,11 +7,11 @@ vernamCipher::vernamCipher(string K)
 {
     key = K;
 }
-void vernamCipher::encrypt()
+void vernamCipher::encrypt(string filename)
 {
     // files
     fstream encFile, textFile;
-    textFile.open("assets/text2.txt", ios::in);
+    textFile.open(filename, ios::in);
     encFile.open("assets/encrypted-VCipher.txt", ios::out);
     if ((!encFile.is_open()) && (!textFile.is_open()))
     {

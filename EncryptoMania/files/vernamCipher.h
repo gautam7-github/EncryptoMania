@@ -10,7 +10,7 @@ private:
 
 public:
     vernamCipher(string);
-    void encrypt();
+    void encrypt(string);
     void decrypt();
 };
 
